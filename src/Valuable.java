@@ -1,5 +1,6 @@
 public class Valuable {
     private String name;
+    private double value;
 
     public Valuable(String name) {
         this.name = name;
@@ -7,5 +8,9 @@ public class Valuable {
 
     public String getName() {
         return name;
+    }
+
+    public double getValue() {
+        return value;
     }
 }
