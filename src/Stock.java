@@ -18,8 +18,8 @@ public class Stock {
         return quantity;
     }
 
-    public double setRate() {
-        return rate;
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     public double getRate() {
@@ -27,6 +27,6 @@ public class Stock {
     }
 
     public double getValue() {
-        return value;
+        return getQuantity() * getRate();
     }
 }

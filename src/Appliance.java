@@ -23,6 +23,20 @@ public class Appliance {
     }
 
     public double getValue() {
-        return value;
+        return getWear() / 10d * getPrice();
+    }
+
+    public String toString(){
+        return "Name: " + getName() +
+                " Price: " + getPrice() +
+                " Wear: " + getWear() +
+                " Value: " + getValue();
+    }
+
+    public static void main(String []args){
+        Appliance appliance1 = new Appliance("TV", 5500, 6);
+        System.out.println(appliance1);
+        Appliance appliance2 = new Appliance("Radio", 400, 2);
+        System.out.println(appliance2);
     }
 }

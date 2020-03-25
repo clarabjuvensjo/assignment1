@@ -1,4 +1,4 @@
-public class Valuable {
+public abstract class Valuable {
     private String name;
     private double value;
 
