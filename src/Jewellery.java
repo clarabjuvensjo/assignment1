@@ -1,10 +1,11 @@
-public class Jewellery {
+public class Jewellery extends Valuable {
     private String name;
     private int numberOfJewels;
     private Material material;
     private double value;
 
     public Jewellery(String name, int numberOfJewels, Material material) {
+        super(name);
         this.name = name;
         this.numberOfJewels = numberOfJewels;
         this.material = material;

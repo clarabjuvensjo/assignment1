@@ -1,10 +1,11 @@
-public class Appliance {
+public class Appliance extends Valuable {
     private String name;
     private double price;
     private int wear;
     private double value;
 
     public Appliance(String name, double price, int wear) {
+        super(name);
         this.name = name;
         this.price = price;
         this.wear = wear;
