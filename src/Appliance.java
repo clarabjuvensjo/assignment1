@@ -1,18 +1,12 @@
 public class Appliance extends Valuable {
-    private String name;
     private double price;
     private int wear;
     private double value;
 
     public Appliance(String name, double price, int wear) {
         super(name);
-        this.name = name;
         this.price = price;
         this.wear = wear;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public double getPrice() {
@@ -28,10 +22,9 @@ public class Appliance extends Valuable {
     }
 
     public String toString(){
-        return "Name: " + getName() +
+        return super.toString() +
                 " Price: " + getPrice() +
-                " Wear: " + getWear() +
-                " Value: " + getValue();
+                " Wear: " + getWear();
     }
 
     public static void main(String []args){

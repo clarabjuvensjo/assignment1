@@ -3,6 +3,7 @@ public abstract class Valuable {
     private double vat;
 
     public Valuable(String name) {
+        this.vat = 0.25;
         this.name = name;
     }
 
@@ -13,12 +14,17 @@ public abstract class Valuable {
     public abstract double getValue();
 
     public double getValuePlusVAT() {
-        vat = getValue() * 0.25;
-        return vat;
+        return getValue() * (1 + vat);
     }
 
-    public void setVAT() {
-        vat = 0.25;
+    public void setVAT(double vat) {
+        this.vat = vat;
+    }
+
+    public String toString() {
+        return "Name: " + getName() +
+                " Value: " + getValue() +
+                " Value + VAT: " + getValuePlusVAT();
     }
 
     public static void main(String[] args) {
@@ -26,5 +32,9 @@ public abstract class Valuable {
         System.out.println(jewellery.getValuePlusVAT());
         Valuable stock = new Stock("Swedbank", 5, 5);
         System.out.println(stock.getValuePlusVAT());
+        Valuable stock1 = new Stock("Nordea", 2, 1);
+        System.out.println(stock1);
+        Valuable appliance = new Appliance("TV", 5500, 5);
+        System.out.println(appliance);
     }
 }

@@ -1,18 +1,12 @@
 public class Stock extends Valuable {
-    private String name;
     private int quantity;
     private double rate;
     private double value;
 
     public Stock(String name, int quantity, double rate) {
         super(name);
-        this.name = name;
         this.quantity = quantity;
         this.rate = rate;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getQuantity() {
@@ -32,10 +26,9 @@ public class Stock extends Valuable {
     }
 
     public String toString() {
-        return "Name: " + getName() +
-                "Quantity: " + getQuantity() +
-                "Rate: " + getRate();
-
+        return super.toString() +
+                " Quantity: " + getQuantity() +
+                " Rate: " + getRate();
     }
 
     public static void main(String[] args) {
