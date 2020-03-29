@@ -1,7 +1,6 @@
 public class Jewellery extends Valuable {
     private int numberOfJewels;
     private Material material;
-    private double value;
 
     public Jewellery(String name, int numberOfJewels, Material material) {
         super(name);

@@ -36,5 +36,7 @@ public abstract class Valuable {
         System.out.println(stock1);
         Valuable appliance = new Appliance("TV", 5500, 5);
         System.out.println(appliance);
+        appliance.setVAT(0.2);
+        System.out.println(appliance);
     }
 }

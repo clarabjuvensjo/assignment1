@@ -1,7 +1,6 @@
 public class Stock extends Valuable {
     private int quantity;
     private double rate;
-    private double value;
 
     public Stock(String name, int quantity, double rate) {
         super(name);
@@ -32,7 +31,9 @@ public class Stock extends Valuable {
     }
 
     public static void main(String[] args) {
-        Stock Swedbank = new Stock("Swedbank", 5, 50);
-        System.out.println(Swedbank.getValue());
+        Stock swedbank = new Stock("Swedbank", 5, 50);
+        System.out.println(swedbank);
+        swedbank.setRate(40);
+        System.out.println(swedbank);
     }
 }

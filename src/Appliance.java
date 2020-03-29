@@ -1,7 +1,6 @@
 public class Appliance extends Valuable {
     private double price;
     private int wear;
-    private double value;
 
     public Appliance(String name, double price, int wear) {
         super(name);
