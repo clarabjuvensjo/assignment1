@@ -32,7 +32,7 @@ public abstract class Valuable {
     }
 
     public static void main(String[] args) {
-        Valuable jewellery = new Jewellery("Ring", 5, Jewellery.Material.SILVER);
+        Valuable jewellery = new Jewellery("Ring", 5, "Silver");
         System.out.println(jewellery.getValuePlusVAT());
         Valuable stock = new Stock("Swedbank", 5, 5);
         System.out.println(stock.getValuePlusVAT());

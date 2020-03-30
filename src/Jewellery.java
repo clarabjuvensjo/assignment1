@@ -6,10 +6,10 @@ public class Jewellery extends Valuable {
     private int numberOfJewels;
     private Material material;
 
-    public Jewellery(String name, int numberOfJewels, Material material) {
+    public Jewellery(String name, int numberOfJewels, String material) {
         super(name);
         this.numberOfJewels = numberOfJewels;
-        this.material = material;
+        this.material = Material.valueOf(material);
     }
 
     public int getJewels() {
@@ -21,7 +21,7 @@ public class Jewellery extends Valuable {
     }
 
     public enum Material {
-        Guld, Silver;
+        Guld, Silver
     }
 
     public double getValue() {
@@ -39,9 +39,9 @@ public class Jewellery extends Valuable {
     }
 
     public static void main(String[] args) {
-        Jewellery jewellery1 = new Jewellery("Ring", 5, Material.Guld);
+        Jewellery jewellery1 = new Jewellery("Ring", 5, "Guld");
         System.out.println(jewellery1.getValue());
-        Jewellery jewellery2 = new Jewellery("Klocka", 4, Material.Silver);
-        System.out.println(jewellery2.getValue());
+        Jewellery jewellery2 = new Jewellery("Klocka", 4, "Silver");
+        System.out.println(jewellery2);
     }
 }
