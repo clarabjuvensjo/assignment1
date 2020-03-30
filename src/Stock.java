@@ -1,6 +1,5 @@
-/**
- * Clara Bjuvensjö clbj3090
- */
+// PROG2 VT2020, Inlämningsuppgift 1, del 1
+// Clara Bjuvensjö clbj3090
 
 public class Stock extends Valuable {
     private int quantity;

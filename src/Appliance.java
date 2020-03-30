@@ -1,7 +1,5 @@
-/**
- * Clara Bjuvensjö clbj3090
- */
-
+// PROG2 VT2020, Inlämningsuppgift 1, del 1
+// Clara Bjuvensjö clbj3090
 
 public class Appliance extends Valuable {
     private double price;
