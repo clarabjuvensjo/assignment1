@@ -1,3 +1,7 @@
+/**
+ * Clara Bjuvensjö clbj3090
+ */
+
 public abstract class Valuable {
     private String name;
     private double vat;

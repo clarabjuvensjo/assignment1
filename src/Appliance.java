@@ -1,3 +1,8 @@
+/**
+ * Clara Bjuvensjö clbj3090
+ */
+
+
 public class Appliance extends Valuable {
     private double price;
     private int wear;
@@ -20,13 +25,13 @@ public class Appliance extends Valuable {
         return getWear() / 10d * getPrice();
     }
 
-    public String toString(){
+    public String toString() {
         return super.toString() +
                 " Price: " + getPrice() +
                 " Wear: " + getWear();
     }
 
-    public static void main(String []args){
+    public static void main(String[] args) {
         Appliance appliance1 = new Appliance("TV", 5500, 6);
         System.out.println(appliance1);
         Appliance appliance2 = new Appliance("Radio", 400, 2);

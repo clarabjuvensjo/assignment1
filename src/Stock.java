@@ -1,3 +1,7 @@
+/**
+ * Clara Bjuvensjö clbj3090
+ */
+
 public class Stock extends Valuable {
     private int quantity;
     private double rate;
