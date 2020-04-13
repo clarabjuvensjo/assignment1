@@ -10,7 +10,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 
-import javax.swing.*;
 import java.util.Optional;
 
 public class ValuableRegister extends Application {
@@ -59,7 +58,7 @@ public class ValuableRegister extends Application {
         Button show = new Button("Visa");
         show.setOnAction(new ShowHandler());
         Button stockMarketCrash = new Button("Börskrasch");
-        stockMarketCrash.setOnAction(new ButtonHandler());
+        stockMarketCrash.setOnAction(new StockMarketHandler());
 
         FlowPane bottom = new FlowPane();
         bottom.setAlignment(Pos.CENTER);
@@ -91,7 +90,7 @@ public class ValuableRegister extends Application {
         }
     }
 
-    class ButtonHandler implements EventHandler<ActionEvent> {
+    class StockMarketHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
             System.out.println("Börskrasch");
