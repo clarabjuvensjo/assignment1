@@ -49,6 +49,9 @@ public class ValuableRegister extends Application {
         MenuItem stock = new MenuItem("Aktie");
         MenuItem appliance = new MenuItem("Apparat");
         chooseValuable.getItems().addAll(jewellery, stock, appliance);
+        jewellery.setOnAction(new ItemHandler());
+        stock.setOnAction(new ItemHandler());
+        appliance.setOnAction(new ItemHandler());
 
         Button show = new Button("Visa");
         show.setOnAction(new ShowHandler());
@@ -89,6 +92,16 @@ public class ValuableRegister extends Application {
         @Override
         public void handle(ActionEvent event) {
             System.out.println("Börskrasch");
+        }
+    }
+
+
+    class ItemHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            MenuItem item = (MenuItem) event.getSource();
+            String choice = item.getText();
+            System.out.println(choice);
         }
     }
 
