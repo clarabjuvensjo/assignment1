@@ -14,17 +14,49 @@ public class ValuableRegister extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        BorderPane pane = new BorderPane();
+        Scene scene = new Scene(createBorderPane(), 600, 300);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
+    private BorderPane createBorderPane(){
+        BorderPane pane = new BorderPane();
+        pane.setTop(createValuablePane());
+        pane.setBottom(createButtonPane());
+        pane.setCenter(createTextArea());
+        pane.setRight(createSortingVBox());
+        return pane;
+    }
+
+    private FlowPane createValuablePane(){
         Label heading = new Label("Värdesaker");
         FlowPane top = new FlowPane();
-        pane.setTop(top);
         top.getChildren().add(heading);
         top.setAlignment(Pos.CENTER);
         top.setPadding(new Insets(4));
+        return top;
+    }
 
+    private TextArea createTextArea(){
+        TextArea textArea = new TextArea();
+        textArea.setEditable(false);
+        return textArea;
+    }
+
+    private FlowPane createButtonPane(){
+        Button show = new Button("Visa");
+        show.setOnAction(new ShowHandler());
+        Button stockMarketCrash = new Button("Börskrasch");
+        FlowPane bottom = new FlowPane();
+        bottom.setAlignment(Pos.CENTER);
+        bottom.setPadding(new Insets(5));
+        bottom.setHgap(5);
+        bottom.getChildren().addAll(show, stockMarketCrash);
+        return bottom;
+    }
+
+    private VBox createSortingVBox(){
         VBox vBox = new VBox();
-        pane.setRight(vBox);
         vBox.setPadding(new Insets(5));
         vBox.setSpacing(5);
         Label sorting = new Label("Sortering");
@@ -35,24 +67,7 @@ public class ValuableRegister extends Application {
         ToggleGroup sortingGroup = new ToggleGroup();
         sortingGroup.getToggles().addAll(name, value);
         name.setSelected(true);
-
-        TextArea textArea = new TextArea();
-        pane.setCenter(textArea);
-        textArea.setEditable(false);
-
-        Button show = new Button("Visa");
-        show.setOnAction(new ShowHandler());
-        Button stockMarketCrash = new Button("Börskrasch");
-        FlowPane bottom = new FlowPane();
-        bottom.setAlignment(Pos.CENTER);
-        bottom.setPadding(new Insets(5));
-        bottom.setHgap(5);
-        pane.setBottom(bottom);
-        bottom.getChildren().addAll(show, stockMarketCrash);
-
-        Scene scene = new Scene(pane, 600, 300);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        return vBox;
     }
 
     class ShowHandler implements EventHandler<ActionEvent> {
