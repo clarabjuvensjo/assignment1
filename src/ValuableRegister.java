@@ -102,20 +102,27 @@ public class ValuableRegister extends Application {
     class ItemHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
-            InputForm inputForm = new InputForm();
-            Optional<ButtonType> answer = inputForm.showAndWait();
-            if (answer.isPresent() && answer.get() == ButtonType.OK) {
-                String name = inputForm.getName();
-                if (name.isEmpty()) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Felaktig inmatning!");
-                    alert.showAndWait();
-                    return;
+            try {
+                InputForm inputForm = new InputForm();
+                Optional<ButtonType> answer = inputForm.showAndWait();
+                if (answer.isPresent() && answer.get() == ButtonType.OK) {
+                    String name = inputForm.getName();
+                    if (name.isEmpty()) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Fel!");
+                        alert.setHeaderText("Felaktig inmatning!");
+                        alert.showAndWait();
+                        return;
+                    }
+                    int jewels = inputForm.getJewels();
+                    boolean material = inputForm.getMaterial();
                 }
-                int jewels = inputForm.getJewels();
-                boolean material = inputForm.getMaterial();
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Fel!");
+                alert.setHeaderText("Felaktig inmatning!");
+                alert.showAndWait();
             }
-
         }
     }
-
 }
