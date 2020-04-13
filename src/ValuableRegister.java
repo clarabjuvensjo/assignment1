@@ -10,6 +10,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 
+import javax.swing.*;
+import java.util.Optional;
+
 public class ValuableRegister extends Application {
 
     @Override
@@ -99,9 +102,19 @@ public class ValuableRegister extends Application {
     class ItemHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
-            MenuItem item = (MenuItem) event.getSource();
-            String choice = item.getText();
-            System.out.println(choice);
+            InputForm inputForm = new InputForm();
+            Optional<ButtonType> answer = inputForm.showAndWait();
+            if (answer.isPresent() && answer.get() == ButtonType.OK) {
+                String name = inputForm.getName();
+                if (name.isEmpty()) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Felaktig inmatning!");
+                    alert.showAndWait();
+                    return;
+                }
+                int jewels = inputForm.getJewels();
+                boolean material = inputForm.getMaterial();
+            }
+
         }
     }
 
