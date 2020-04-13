@@ -19,7 +19,7 @@ public class ValuableRegister extends Application {
         primaryStage.show();
     }
 
-    private BorderPane createBorderPane(){
+    private BorderPane createBorderPane() {
         BorderPane pane = new BorderPane();
         pane.setTop(createValuablePane());
         pane.setBottom(createButtonPane());
@@ -28,7 +28,7 @@ public class ValuableRegister extends Application {
         return pane;
     }
 
-    private FlowPane createValuablePane(){
+    private FlowPane createValuablePane() {
         Label heading = new Label("Värdesaker");
         FlowPane top = new FlowPane();
         top.getChildren().add(heading);
@@ -37,25 +37,33 @@ public class ValuableRegister extends Application {
         return top;
     }
 
-    private TextArea createTextArea(){
+    private TextArea createTextArea() {
         TextArea textArea = new TextArea();
         textArea.setEditable(false);
         return textArea;
     }
 
-    private FlowPane createButtonPane(){
+    private FlowPane createButtonPane() {
+        MenuButton chooseValuable = new MenuButton("Välj en värdesak: ");
+        MenuItem jewellery = new MenuItem("Smycke");
+        MenuItem stock = new MenuItem("Aktie");
+        MenuItem appliance = new MenuItem("Apparat");
+        chooseValuable.getItems().addAll(jewellery, stock, appliance);
+
         Button show = new Button("Visa");
         show.setOnAction(new ShowHandler());
         Button stockMarketCrash = new Button("Börskrasch");
+        stockMarketCrash.setOnAction(new ButtonHandler());
+
         FlowPane bottom = new FlowPane();
         bottom.setAlignment(Pos.CENTER);
         bottom.setPadding(new Insets(5));
         bottom.setHgap(5);
-        bottom.getChildren().addAll(show, stockMarketCrash);
+        bottom.getChildren().addAll(chooseValuable, show, stockMarketCrash);
         return bottom;
     }
 
-    private VBox createSortingVBox(){
+    private VBox createSortingVBox() {
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(5));
         vBox.setSpacing(5);
@@ -73,7 +81,14 @@ public class ValuableRegister extends Application {
     class ShowHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
-            System.out.println("Klick");
+            System.out.println("Visa");
+        }
+    }
+
+    class ButtonHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            System.out.println("Börskrasch");
         }
     }
 
