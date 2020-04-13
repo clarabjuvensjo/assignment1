@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,17 +14,17 @@ public class ValuableRegister extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        BorderPane root = new BorderPane();
+        BorderPane pane = new BorderPane();
 
         Label heading = new Label("Värdesaker");
         FlowPane top = new FlowPane();
-        root.setTop(top);
+        pane.setTop(top);
         top.getChildren().add(heading);
         top.setAlignment(Pos.CENTER);
         top.setPadding(new Insets(4));
 
         VBox vBox = new VBox();
-        root.setRight(vBox);
+        pane.setRight(vBox);
         vBox.setPadding(new Insets(5));
         vBox.setSpacing(5);
         Label sorting = new Label("Sortering");
@@ -35,22 +37,29 @@ public class ValuableRegister extends Application {
         name.setSelected(true);
 
         TextArea textArea = new TextArea();
-        root.setCenter(textArea);
+        pane.setCenter(textArea);
         textArea.setEditable(false);
 
         Button show = new Button("Visa");
+        show.setOnAction(new ShowHandler());
         Button stockMarketCrash = new Button("Börskrasch");
         FlowPane bottom = new FlowPane();
         bottom.setAlignment(Pos.CENTER);
         bottom.setPadding(new Insets(5));
         bottom.setHgap(5);
-        root.setBottom(bottom);
+        pane.setBottom(bottom);
         bottom.getChildren().addAll(show, stockMarketCrash);
 
-
-        Scene scene = new Scene(root, 600, 300);
+        Scene scene = new Scene(pane, 600, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    class ShowHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            System.out.println("Klick");
+        }
     }
 
 }
