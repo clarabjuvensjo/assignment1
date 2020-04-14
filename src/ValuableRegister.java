@@ -32,11 +32,11 @@ public class ValuableRegister extends Application {
 
     private FlowPane createValuablePane() {
         Label heading = new Label("Värdesaker");
-        FlowPane top = new FlowPane();
-        top.getChildren().add(heading);
-        top.setAlignment(Pos.CENTER);
-        top.setPadding(new Insets(4));
-        return top;
+        FlowPane pane = new FlowPane();
+        pane.getChildren().add(heading);
+        pane.setAlignment(Pos.CENTER);
+        pane.setPadding(new Insets(4));
+        return pane;
     }
 
     private TextArea createTextArea() {
@@ -51,21 +51,21 @@ public class ValuableRegister extends Application {
         MenuItem stock = new MenuItem("Aktie");
         MenuItem appliance = new MenuItem("Apparat");
         chooseValuable.getItems().addAll(jewellery, stock, appliance);
-        jewellery.setOnAction(new ItemHandler());
-        stock.setOnAction(new ItemHandler());
-        appliance.setOnAction(new ItemHandler());
+        jewellery.setOnAction(new JewelleryItemHandler());
+        stock.setOnAction(new JewelleryItemHandler());
+        appliance.setOnAction(new JewelleryItemHandler());
 
         Button show = new Button("Visa");
         show.setOnAction(new ShowHandler());
         Button stockMarketCrash = new Button("Börskrasch");
         stockMarketCrash.setOnAction(new StockMarketHandler());
 
-        FlowPane bottom = new FlowPane();
-        bottom.setAlignment(Pos.CENTER);
-        bottom.setPadding(new Insets(5));
-        bottom.setHgap(5);
-        bottom.getChildren().addAll(chooseValuable, show, stockMarketCrash);
-        return bottom;
+        FlowPane pane = new FlowPane();
+        pane.setAlignment(Pos.CENTER);
+        pane.setPadding(new Insets(5));
+        pane.setHgap(5);
+        pane.getChildren().addAll(chooseValuable, show, stockMarketCrash);
+        return pane;
     }
 
     private VBox createSortingVBox() {
@@ -98,7 +98,7 @@ public class ValuableRegister extends Application {
     }
 
 
-    class ItemHandler implements EventHandler<ActionEvent> {
+    class JewelleryItemHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
             try {
