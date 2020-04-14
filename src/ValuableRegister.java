@@ -46,14 +46,11 @@ public class ValuableRegister extends Application {
     }
 
     private FlowPane createButtonPane() {
-        MenuButton chooseValuable = new MenuButton("Välj en värdesak: ");
-        MenuItem jewellery = new MenuItem("Smycke");
-        MenuItem stock = new MenuItem("Aktie");
-        MenuItem appliance = new MenuItem("Apparat");
-        chooseValuable.getItems().addAll(jewellery, stock, appliance);
-        jewellery.setOnAction(new JewelleryItemHandler());
-        stock.setOnAction(new JewelleryItemHandler());
-        appliance.setOnAction(new JewelleryItemHandler());
+        MenuButton chooseMenuButton = new MenuButton("Välj en värdesak: ");
+        MenuItem jewelleryMenuItem = createJewelleryMenuItem();
+        MenuItem stockMenuItem = createStockMenuItem();
+        MenuItem applianceMenuItem = createApplianceMenuItem();
+        chooseMenuButton.getItems().addAll(jewelleryMenuItem, stockMenuItem, applianceMenuItem);
 
         Button show = new Button("Visa");
         show.setOnAction(new ShowHandler());
@@ -64,9 +61,106 @@ public class ValuableRegister extends Application {
         pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(5));
         pane.setHgap(5);
-        pane.getChildren().addAll(chooseValuable, show, stockMarketCrash);
+        pane.getChildren().addAll(chooseMenuButton, show, stockMarketCrash);
         return pane;
     }
+
+    private MenuItem createJewelleryMenuItem() {
+        MenuItem menuItem = new MenuItem("Smycke");
+        menuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    JewelleryInputForm jewelleryInputForm = new JewelleryInputForm();
+                    Optional<ButtonType> answer = jewelleryInputForm.showAndWait();
+                    if (answer.isPresent() && answer.get() == ButtonType.OK) {
+                        String name = jewelleryInputForm.getName();
+                        if (name.isEmpty()) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Fel!");
+                            alert.setHeaderText("Felaktig inmatning!");
+                            alert.showAndWait();
+                            return;
+                        }
+                        int jewels = jewelleryInputForm.getJewels();
+                        boolean material = jewelleryInputForm.getMaterial();
+                    }
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Fel!");
+                    alert.setHeaderText("Felaktig inmatning!");
+                    alert.showAndWait();
+                }
+            }
+
+        });
+        return menuItem;
+    }
+
+    private MenuItem createStockMenuItem() {
+        MenuItem menuItem = new MenuItem("Aktie");
+        menuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    StockInputForm stockInputForm = new StockInputForm();
+                    Optional<ButtonType> answer = stockInputForm.showAndWait();
+                    if (answer.isPresent() && answer.get() == ButtonType.OK) {
+                        String name = stockInputForm.getName();
+                        if (name.isEmpty()) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Fel!");
+                            alert.setHeaderText("Felaktig inmatning!");
+                            alert.showAndWait();
+                            return;
+                        }
+                        int numbers = stockInputForm.getNumbers();
+                        int price = stockInputForm.getPrice();
+                    }
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Fel!");
+                    alert.setHeaderText("Felaktig inmatning!");
+                    alert.showAndWait();
+                }
+            }
+
+        });
+        return menuItem;
+    }
+
+    private MenuItem createApplianceMenuItem() {
+        MenuItem menuItem = new MenuItem("Apparat");
+        menuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    ApplianceInputForm applianceInputForm = new ApplianceInputForm();
+                    Optional<ButtonType> answer = applianceInputForm.showAndWait();
+                    if (answer.isPresent() && answer.get() == ButtonType.OK) {
+                        String name = applianceInputForm.getName();
+                        if (name.isEmpty()) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Fel!");
+                            alert.setHeaderText("Felaktig inmatning!");
+                            alert.showAndWait();
+                            return;
+                        }
+                        int price = applianceInputForm.getPrice();
+                        int wear = applianceInputForm.getWear();
+                    }
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Fel!");
+                    alert.setHeaderText("Felaktig inmatning!");
+                    alert.showAndWait();
+                }
+            }
+
+        });
+        return menuItem;
+    }
+
 
     private VBox createSortingVBox() {
         VBox vBox = new VBox();
@@ -94,34 +188,6 @@ public class ValuableRegister extends Application {
         @Override
         public void handle(ActionEvent event) {
             System.out.println("Börskrasch");
-        }
-    }
-
-
-    class JewelleryItemHandler implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent event) {
-            try {
-                InputForm inputForm = new InputForm();
-                Optional<ButtonType> answer = inputForm.showAndWait();
-                if (answer.isPresent() && answer.get() == ButtonType.OK) {
-                    String name = inputForm.getName();
-                    if (name.isEmpty()) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Fel!");
-                        alert.setHeaderText("Felaktig inmatning!");
-                        alert.showAndWait();
-                        return;
-                    }
-                    int jewels = inputForm.getJewels();
-                    boolean material = inputForm.getMaterial();
-                }
-            } catch (NumberFormatException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Fel!");
-                alert.setHeaderText("Felaktig inmatning!");
-                alert.showAndWait();
-            }
         }
     }
 }

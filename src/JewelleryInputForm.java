@@ -4,12 +4,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-public class InputForm extends Alert {
+public class JewelleryInputForm extends Alert {
     private TextField nameField = new TextField();
     private TextField jewelField = new TextField();
     private CheckBox materialBox = new CheckBox("Av guld");
 
-    public InputForm() {
+    public JewelleryInputForm() {
         super(AlertType.CONFIRMATION);
         GridPane pane = new GridPane();
         pane.addRow(0, new Label("Namn: ", nameField));
@@ -19,15 +19,15 @@ public class InputForm extends Alert {
         setHeaderText("Nytt smycke");
     }
 
-    public String getName(){
+    public String getName() {
         return nameField.getText();
     }
 
-    public int getJewels(){
+    public int getJewels() {
         return Integer.parseInt(jewelField.getText());
     }
 
-    public boolean getMaterial(){
+    public boolean getMaterial() {
         return materialBox.isSelected();
     }
 
