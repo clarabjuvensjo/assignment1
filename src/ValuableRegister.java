@@ -15,6 +15,9 @@ import java.util.Optional;
 
 public class ValuableRegister extends Application {
     ArrayList<Stock> stocks = new ArrayList<>();
+    ArrayList<Jewellery> jewelleries = new ArrayList<>();
+    ArrayList<Appliance> appliances = new ArrayList<>();
+    private TextArea textArea = createTextArea();
 
     @Override
     public void start(Stage primaryStage) {
@@ -27,7 +30,7 @@ public class ValuableRegister extends Application {
         BorderPane pane = new BorderPane();
         pane.setTop(createValuablePane());
         pane.setBottom(createButtonPane());
-        pane.setCenter(createTextArea());
+        pane.setCenter(textArea);
         pane.setRight(createSortingVBox());
         return pane;
     }
@@ -54,8 +57,7 @@ public class ValuableRegister extends Application {
         MenuItem applianceMenuItem = createApplianceMenuItem();
         chooseMenuButton.getItems().addAll(jewelleryMenuItem, stockMenuItem, applianceMenuItem);
 
-        Button show = new Button("Visa");
-        show.setOnAction(new ShowHandler());
+        Button show = createShowButton();
         Button stockMarketCrash = createMarketCrashButton();
 
         FlowPane pane = new FlowPane();
@@ -64,6 +66,21 @@ public class ValuableRegister extends Application {
         pane.setHgap(5);
         pane.getChildren().addAll(chooseMenuButton, show, stockMarketCrash);
         return pane;
+    }
+
+    private Button createShowButton() {
+        Button show = new Button("Visa");
+        show.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                ArrayList<Valuable> valuables = new ArrayList<>();
+                valuables.addAll(stocks);
+                valuables.addAll(jewelleries);
+                valuables.addAll(appliances);
+                textArea.setText(valuables.toString());
+            }
+        });
+        return show;
     }
 
     private Button createMarketCrashButton() {
@@ -113,7 +130,15 @@ public class ValuableRegister extends Application {
                             return;
                         }
                         int jewels = jewelleryInputForm.getJewels();
-                        boolean material = jewelleryInputForm.getMaterial();
+                        boolean isGold = jewelleryInputForm.getMaterial();
+                        String material;
+                        if (isGold) {
+                            material = "Guld";
+                        } else {
+                            material = "Silver";
+                        }
+                        Jewellery jewellery = new Jewellery(name, jewels, material);
+                        jewelleries.add(jewellery);
                     }
                 } catch (NumberFormatException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -145,7 +170,9 @@ public class ValuableRegister extends Application {
                             return;
                         }
                         int numbers = stockInputForm.getNumbers();
-                        int price = stockInputForm.getPrice();
+                        double price = stockInputForm.getPrice();
+                        Stock stock = new Stock(name, numbers, price);
+                        stocks.add(stock);
                     }
                 } catch (NumberFormatException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -176,8 +203,10 @@ public class ValuableRegister extends Application {
                             alert.showAndWait();
                             return;
                         }
-                        int price = applianceInputForm.getPrice();
+                        double price = applianceInputForm.getPrice();
                         int wear = applianceInputForm.getWear();
+                        Appliance appliance = new Appliance(name, price, wear);
+                        appliances.add(appliance);
                     }
                 } catch (NumberFormatException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -189,21 +218,5 @@ public class ValuableRegister extends Application {
 
         });
         return menuItem;
-    }
-
-    class ShowHandler implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent event) {
-            System.out.println("Visa");
-        }
-    }
-
-    class StockMarketHandler implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent event) {
-            for (Stock s : stocks) {
-                s.setRate(0);
-            }
-        }
     }
 }

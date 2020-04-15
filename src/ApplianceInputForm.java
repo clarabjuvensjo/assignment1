@@ -22,7 +22,7 @@ public class ApplianceInputForm extends Alert {
         return nameField.getText();
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return Integer.parseInt(priceField.getText());
     }
 

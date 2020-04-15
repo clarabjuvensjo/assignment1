@@ -26,7 +26,7 @@ public class StockInputForm extends Alert {
         return Integer.parseInt(numberField.getText());
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return Integer.parseInt(priceField.getText());
     }
 
