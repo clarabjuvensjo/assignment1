@@ -10,9 +10,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ValuableRegister extends Application {
+    ArrayList<Stock> stocks = new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) {
@@ -54,8 +56,7 @@ public class ValuableRegister extends Application {
 
         Button show = new Button("Visa");
         show.setOnAction(new ShowHandler());
-        Button stockMarketCrash = new Button("Börskrasch");
-        stockMarketCrash.setOnAction(new StockMarketHandler());
+        Button stockMarketCrash = createMarketCrashButton();
 
         FlowPane pane = new FlowPane();
         pane.setAlignment(Pos.CENTER);
@@ -64,6 +65,35 @@ public class ValuableRegister extends Application {
         pane.getChildren().addAll(chooseMenuButton, show, stockMarketCrash);
         return pane;
     }
+
+    private Button createMarketCrashButton() {
+        Button stockMarketCrash = new Button("Börskrasch");
+        stockMarketCrash.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                for (Stock s : stocks) {
+                    s.setRate(0);
+                }
+            }
+        });
+        return stockMarketCrash;
+    }
+
+    private VBox createSortingVBox() {
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(5));
+        vBox.setSpacing(5);
+        Label sorting = new Label("Sortering");
+        vBox.getChildren().add(sorting);
+        RadioButton name = new RadioButton("Namn");
+        RadioButton value = new RadioButton("Värde");
+        vBox.getChildren().addAll(name, value);
+        ToggleGroup sortingGroup = new ToggleGroup();
+        sortingGroup.getToggles().addAll(name, value);
+        name.setSelected(true);
+        return vBox;
+    }
+
 
     private MenuItem createJewelleryMenuItem() {
         MenuItem menuItem = new MenuItem("Smycke");
@@ -161,22 +191,6 @@ public class ValuableRegister extends Application {
         return menuItem;
     }
 
-
-    private VBox createSortingVBox() {
-        VBox vBox = new VBox();
-        vBox.setPadding(new Insets(5));
-        vBox.setSpacing(5);
-        Label sorting = new Label("Sortering");
-        vBox.getChildren().add(sorting);
-        RadioButton name = new RadioButton("Namn");
-        RadioButton value = new RadioButton("Värde");
-        vBox.getChildren().addAll(name, value);
-        ToggleGroup sortingGroup = new ToggleGroup();
-        sortingGroup.getToggles().addAll(name, value);
-        name.setSelected(true);
-        return vBox;
-    }
-
     class ShowHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
@@ -187,7 +201,9 @@ public class ValuableRegister extends Application {
     class StockMarketHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
-            System.out.println("Börskrasch");
+            for (Stock s : stocks) {
+                s.setRate(0);
+            }
         }
     }
 }
