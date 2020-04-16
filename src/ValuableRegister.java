@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Optional;
 
 public class ValuableRegister extends Application {
@@ -18,6 +19,7 @@ public class ValuableRegister extends Application {
     ArrayList<Jewellery> jewelleries = new ArrayList<>();
     ArrayList<Appliance> appliances = new ArrayList<>();
     private TextArea textArea = createTextArea();
+    private RadioButton nameRadioButton = createNameRadioButton();
 
     @Override
     public void start(Stage primaryStage) {
@@ -73,14 +75,25 @@ public class ValuableRegister extends Application {
         show.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                ArrayList<Valuable> valuables = new ArrayList<>();
-                valuables.addAll(stocks);
-                valuables.addAll(jewelleries);
-                valuables.addAll(appliances);
-                textArea.setText(valuables.toString());
+                updateTextAreaText();
             }
         });
         return show;
+    }
+
+    private void updateTextAreaText() {
+        ArrayList<Valuable> valuables = new ArrayList<>();
+        valuables.addAll(stocks);
+        valuables.addAll(jewelleries);
+        valuables.addAll(appliances);
+
+        if (nameRadioButton.isSelected()) {
+            valuables.sort(Comparator.comparing(Valuable::getName));
+        } else {
+            valuables.sort(Comparator.comparing(Valuable::getValue));
+        }
+
+        textArea.setText(valuables.toString());
     }
 
     private Button createMarketCrashButton() {
@@ -102,13 +115,34 @@ public class ValuableRegister extends Application {
         vBox.setSpacing(5);
         Label sorting = new Label("Sortering");
         vBox.getChildren().add(sorting);
-        RadioButton name = new RadioButton("Namn");
-        RadioButton value = new RadioButton("Värde");
-        vBox.getChildren().addAll(name, value);
+        RadioButton value = createValueRadioButton();
+        vBox.getChildren().addAll(nameRadioButton, value);
         ToggleGroup sortingGroup = new ToggleGroup();
-        sortingGroup.getToggles().addAll(name, value);
-        name.setSelected(true);
+        sortingGroup.getToggles().addAll(nameRadioButton, value);
+        nameRadioButton.setSelected(true);
         return vBox;
+    }
+
+    private RadioButton createValueRadioButton() {
+        RadioButton radioButton = new RadioButton("Värde");
+        radioButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                updateTextAreaText();
+            }
+        });
+        return radioButton;
+    }
+
+    private RadioButton createNameRadioButton() {
+        RadioButton radioButton = new RadioButton("Namn");
+        radioButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                updateTextAreaText();
+            }
+        });
+        return radioButton;
     }
 
 
@@ -123,10 +157,7 @@ public class ValuableRegister extends Application {
                     if (answer.isPresent() && answer.get() == ButtonType.OK) {
                         String name = jewelleryInputForm.getName();
                         if (name.isEmpty()) {
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Fel!");
-                            alert.setHeaderText("Felaktig inmatning!");
-                            alert.showAndWait();
+                            showErrorAlert();
                             return;
                         }
                         int jewels = jewelleryInputForm.getJewels();
@@ -141,10 +172,7 @@ public class ValuableRegister extends Application {
                         jewelleries.add(jewellery);
                     }
                 } catch (NumberFormatException e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Fel!");
-                    alert.setHeaderText("Felaktig inmatning!");
-                    alert.showAndWait();
+                    showErrorAlert();
                 }
             }
 
@@ -163,10 +191,7 @@ public class ValuableRegister extends Application {
                     if (answer.isPresent() && answer.get() == ButtonType.OK) {
                         String name = stockInputForm.getName();
                         if (name.isEmpty()) {
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Fel!");
-                            alert.setHeaderText("Felaktig inmatning!");
-                            alert.showAndWait();
+                            showErrorAlert();
                             return;
                         }
                         int numbers = stockInputForm.getNumbers();
@@ -175,15 +200,19 @@ public class ValuableRegister extends Application {
                         stocks.add(stock);
                     }
                 } catch (NumberFormatException e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Fel!");
-                    alert.setHeaderText("Felaktig inmatning!");
-                    alert.showAndWait();
+                    showErrorAlert();
                 }
             }
 
         });
         return menuItem;
+    }
+
+    private void showErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fel!");
+        alert.setHeaderText("Felaktig inmatning!");
+        alert.showAndWait();
     }
 
     private MenuItem createApplianceMenuItem() {
@@ -197,10 +226,7 @@ public class ValuableRegister extends Application {
                     if (answer.isPresent() && answer.get() == ButtonType.OK) {
                         String name = applianceInputForm.getName();
                         if (name.isEmpty()) {
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Fel!");
-                            alert.setHeaderText("Felaktig inmatning!");
-                            alert.showAndWait();
+                            showErrorAlert();
                             return;
                         }
                         double price = applianceInputForm.getPrice();
@@ -209,10 +235,7 @@ public class ValuableRegister extends Application {
                         appliances.add(appliance);
                     }
                 } catch (NumberFormatException e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Fel!");
-                    alert.setHeaderText("Felaktig inmatning!");
-                    alert.showAndWait();
+                    showErrorAlert();
                 }
             }
 
