@@ -25,8 +25,8 @@ public class Appliance extends Valuable {
 
     public String toString() {
         return super.toString() +
-                " Price: " + getPrice() +
-                " Wear: " + getWear();
+                " Pris: " + getPrice() +
+                " Slitage: " + getWear();
     }
 
     public static void main(String[] args) {

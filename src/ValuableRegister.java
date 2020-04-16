@@ -18,9 +18,9 @@ import java.util.Comparator;
 import java.util.Optional;
 
 public class ValuableRegister extends Application {
-    ArrayList<Stock> stocks = new ArrayList<>();
-    ArrayList<Jewellery> jewelleries = new ArrayList<>();
-    ArrayList<Appliance> appliances = new ArrayList<>();
+    private ArrayList<Stock> stocks = new ArrayList<>();
+    private ArrayList<Jewellery> jewelleries = new ArrayList<>();
+    private ArrayList<Appliance> appliances = new ArrayList<>();
     private TextArea textArea = createTextArea();
     private RadioButton nameRadioButton = createNameRadioButton();
 
@@ -119,17 +119,17 @@ public class ValuableRegister extends Application {
     }
 
     private VBox createSortingVBox() {
-        VBox vBox = new VBox();
-        vBox.setPadding(new Insets(5));
-        vBox.setSpacing(5);
+        VBox sortingVBox = new VBox();
+        sortingVBox.setPadding(new Insets(5));
+        sortingVBox.setSpacing(5);
         Label sorting = new Label("Sortering");
-        vBox.getChildren().add(sorting);
+        sortingVBox.getChildren().add(sorting);
         RadioButton value = createValueRadioButton();
-        vBox.getChildren().addAll(nameRadioButton, value);
+        sortingVBox.getChildren().addAll(nameRadioButton, value);
         ToggleGroup sortingGroup = new ToggleGroup();
         sortingGroup.getToggles().addAll(nameRadioButton, value);
         nameRadioButton.setSelected(true);
-        return vBox;
+        return sortingVBox;
     }
 
     private RadioButton createValueRadioButton() {

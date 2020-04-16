@@ -29,8 +29,8 @@ public class Stock extends Valuable {
 
     public String toString() {
         return super.toString() +
-                " Quantity: " + getQuantity() +
-                " Rate: " + getRate();
+                " Antal: " + getQuantity() +
+                " Kurs: " + getRate();
     }
 
     public static void main(String[] args) {

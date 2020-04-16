@@ -33,7 +33,7 @@ public class Jewellery extends Valuable {
 
     public String toString() {
         return super.toString() +
-                " Number of jewels: " + getJewels() +
+                " Antal stenar: " + getJewels() +
                 " Material: " + getMaterial();
     }
 

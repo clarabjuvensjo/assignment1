@@ -25,9 +25,9 @@ public abstract class Valuable {
     }
 
     public String toString() {
-        return "Name: " + getName() +
-                " Value: " + getValue() +
-                " Value + VAT: " + getValuePlusVAT();
+        return getName() +
+                " Värde: " + getValue() +
+                " Värde + moms: " + getValuePlusVAT();
     }
 
     public static void main(String[] args) {
