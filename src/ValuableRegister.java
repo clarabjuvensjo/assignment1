@@ -1,3 +1,6 @@
+// PROG2 VT2020, Inlämningsuppgift 1, del 1
+// Clara Bjuvensjö clbj3090
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -5,10 +8,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.layout.BorderPane;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -93,7 +96,12 @@ public class ValuableRegister extends Application {
             valuables.sort(Comparator.comparing(Valuable::getValue));
         }
 
-        textArea.setText(valuables.toString());
+        ArrayList<String> stringValuables = new ArrayList<>();
+        for (Valuable v : valuables) {
+            stringValuables.add(v.toString());
+        }
+
+        textArea.setText(String.join("\n", stringValuables));
     }
 
     private Button createMarketCrashButton() {

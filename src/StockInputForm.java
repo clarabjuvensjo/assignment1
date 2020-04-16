@@ -1,3 +1,6 @@
+// PROG2 VT2020, Inlämningsuppgift 1, del 1
+// Clara Bjuvensjö clbj3090
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,9 +14,9 @@ public class StockInputForm extends Alert {
     public StockInputForm() {
         super(AlertType.CONFIRMATION);
         GridPane pane = new GridPane();
-        pane.addRow(0, new Label("Namn: ", nameField));
-        pane.addRow(1, new Label("Antal: ", numberField));
-        pane.addRow(2, new Label("Pris: ", priceField));
+        pane.addRow(0, new Label("Namn: "), nameField);
+        pane.addRow(1, new Label("Antal: "), numberField);
+        pane.addRow(2, new Label("Pris: "), priceField);
         getDialogPane().setContent(pane);
         setHeaderText("Ny aktie");
     }
