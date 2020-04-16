@@ -104,6 +104,7 @@ public class ValuableRegister extends Application {
                 for (Stock s : stocks) {
                     s.setRate(0);
                 }
+                updateTextAreaText();
             }
         });
         return stockMarketCrash;
